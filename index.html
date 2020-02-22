@@ -29,15 +29,32 @@
       until you find a topic you are already interested in.
     </p>
 
-    <button>Expand my self!</button>
+    <button id="lifeExpander">Expand my self!</button>
 
     <p>
       You're going to learn about:
     </p>
 
-    <h2><a>Your Title Goes Here</a></h2>
+    <p id="titleAndLink">
+    </p>
 
     <div style="height: 100px"></div>
     <p>Made by <a href="https://nateberkopec.com">Nate Berkopec</a></p>
+
+    <script>
+
+      document.getElementById('lifeExpander').onclick = function expandLife() {
+        let requestURL = '/vsi_titles.json';
+        let request = new XMLHttpRequest();
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+          const vsiTitleList = request.response;
+          let yourTitle = vsiTitleList[Math.floor(Math.random() * vsiTitleList.length)]
+          document.getElementById("titleAndLink").innerHTML = "<h2><a href='" + yourTitle.url + "'>" + yourTitle.title +"</a></h2>"
+        }
+      }
+    </script>
   </body>
 </html>
